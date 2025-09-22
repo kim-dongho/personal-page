@@ -88,11 +88,11 @@ const SimButton = styled.button`
 interface WeatherData {
   temp: number;
   description: string;
-  icon: JSX.Element;
+  icon: React.ReactNode;
   location: string;
 }
 
-const mapWeatherCodeToIcon = (code: number): JSX.Element => {
+const mapWeatherCodeToIcon = (code: number): React.ReactNode => {
   if (code >= 200 && code < 300) return <WiThunderstorm />;
   if (code >= 300 && code < 600) return <WiRain />;
   if (code >= 600 && code < 700) return <WiSnow />;
