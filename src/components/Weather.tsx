@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import { useWeather, WeatherCondition } from '@/context/WeatherContext';
 import { WiDaySunny, WiCloudy, WiRain, WiSnow, WiFog, WiThunderstorm, WiNa } from 'react-icons/wi';

@@ -226,13 +226,13 @@ const Shortcuts = () => {
   const handleAddShortcut = async (e: React.FormEvent) => {
     e.preventDefault();
     if (newName.trim() && newUrl.trim()) {
-      const { data: insertedData, error } = await supabase
+      const { data: insertedData, error: insertError } = await supabase
         .from('shortcuts')
         .insert({ name: newName, url: newUrl.startsWith('http') ? newUrl : `https://${newUrl}` })
         .select(); // Select the inserted data to get its ID and created_at
 
-      if (error) {
-        console.error('Error adding shortcut:', error);
+      if (insertError) {
+        console.error('Error adding shortcut:', insertError);
       } else if (insertedData) {
         // Re-fetch to ensure we have the latest 8 and correct order
         fetchShortcuts();
