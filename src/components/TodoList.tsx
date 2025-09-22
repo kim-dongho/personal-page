@@ -5,6 +5,13 @@ import { BsCircle, BsCheckCircleFill } from 'react-icons/bs';
 import { IoMdAdd, IoMdCloseCircleOutline } from 'react-icons/io'; // Added IoMdCloseCircleOutline
 import { FiEdit } from 'react-icons/fi'; // Added FiEdit
 
+interface Todo {
+  id: number;
+  task: string;
+  is_completed: boolean;
+  inserted_at: string;
+}
+
 // --- Component Styles ---
 const TodoContainer = styled.div`
   padding: 20px;
@@ -176,7 +183,7 @@ const SaveButton = styled.button`
 `;
 
 const TodoList = () => {
-  const [todos, setTodos] = useState<any[]>([]);
+  const [todos, setTodos] = useState<Todo[]>([]);
   const [task, setTask] = useState("");
   const [editingTodoId, setEditingTodoId] = useState<number | null>(null);
   const [editingText, setEditingText] = useState("");
@@ -187,24 +194,27 @@ const TodoList = () => {
   }, []);
 
   const fetchTodos = async () => {
-    const { data: todos, error } = await supabase
+    const { data: todosData, error } = await supabase
       .from("todos")
       .select("*")
       .order("inserted_at", { ascending: true });
     if (error) console.error("Error fetching todos:", error);
-    else setTodos(todos);
+    else if (todosData) setTodos(todosData as Todo[]);
   };
 
   const addTodo = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!task.trim()) return;
 
-    const { data, error } = await supabase.from("todos").insert({ task }).select();
+    const { data: newTodoData, error } = await supabase
+      .from("todos")
+      .insert({ task })
+      .select();
 
     if (error) {
       console.error("Error adding todo:", error);
-    } else if (data) {
-      setTodos([...todos, data[0]]);
+    } else if (newTodoData) {
+      setTodos([...todos, newTodoData[0] as Todo]);
       setTask("");
     }
   };
@@ -238,7 +248,7 @@ const TodoList = () => {
     }
   };
 
-  const handleEditClick = (todo: any) => {
+  const handleEditClick = (todo: Todo) => {
     setEditingTodoId(todo.id);
     setEditingText(todo.task);
   };
