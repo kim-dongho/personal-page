@@ -48,14 +48,15 @@
 
 ### 환경 변수
 
-이 프로젝트는 백엔드로 Supabase를 사용합니다. Supabase 프로젝트 URL과 익명 키를 설정해야 합니다.
+이 프로젝트는 백엔드로 Supabase를 사용하며, 날씨 정보를 위해 OpenWeatherMap API를 사용합니다. Supabase 프로젝트 URL과 익명 키, 그리고 OpenWeatherMap API 키를 설정해야 합니다.
 
 1.  프로젝트 루트에 **`.env.local` 파일을 생성**합니다:
     ```
     NEXT_PUBLIC_SUPABASE_URL=YOUR_SUPABASE_URL
     NEXT_PUBLIC_SUPABASE_ANON_KEY=YOUR_SUPABASE_ANON_KEY
+    NEXT_PUBLIC_OPENWEATHER_API_KEY=YOUR_OPENWEATHER_API_KEY
     ```
-    이 값들은 Supabase 프로젝트의 API 설정에서 찾을 수 있습니다.
+    Supabase 키는 Supabase 프로젝트의 API 설정에서, OpenWeatherMap API 키는 [OpenWeatherMap 웹사이트](https://openweathermap.org/api)에서 얻을 수 있습니다.
 
 2.  **데이터베이스 설정**: Supabase 프로젝트에 `todos` 테이블과 `shortcuts` 테이블이 있는지 확인하세요. 다음 SQL을 사용하여 테이블을 생성할 수 있습니다:
 
